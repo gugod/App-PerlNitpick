@@ -1,15 +1,20 @@
 package App::P5Nitpick::Rule::QuoteSimpleStrWithSingleQuote;
 # ABSTRACT: Re-quote strings with single quotes ('') if they look "simple"
 
+=encoding UTF-8
+
 =head1 DESCRIPTION
 
-This nitpicking rule re-quote simple strings with single-quote.
+This nitpicking rule re-quote SimpleStr with single-quote.
 For example, C<"coffee"> becomes C<'coffee'>.
 
-Simple strings are the ones that:
+=head2 SimpleStr ?
+
+SimpleStr (simple strings) is a type of string literal that satisfy
+all of these constraints:
 
     - is a string literal (not variable)
-    - is currently quoted with: q, qq, double-quote ("), or single-quote (')
+    - is quoted with: q, qq, double-quote ("), or single-quote (')
     - has no interpolations inside
     - has no quote characters inside
     - has no sigil characters inside
