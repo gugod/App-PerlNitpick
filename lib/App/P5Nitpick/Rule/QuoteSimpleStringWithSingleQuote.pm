@@ -53,6 +53,7 @@ sub rewrite {
 
     my $doc = $self->document;
     my $toks = $doc->find(sub { $_[1]->isa('PPI::Token::Quote::Double') });
+    return $doc unless $toks;
 
     $_->simplify for @$toks;
 
