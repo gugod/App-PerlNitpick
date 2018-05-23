@@ -52,10 +52,28 @@ sub rewrite {
     my ($self) = @_;
 
     my $doc = $self->document;
-    my $toks = $doc->find(sub { $_[1]->isa('PPI::Token::Quote::Double') });
-    return $doc unless $toks;
 
-    $_->simplify for @$toks;
+    $_->simplify for @{$doc->find(sub { $_[1]->isa('PPI::Token::Quote::Double') }) || []};
+
+    my @todo;
+    for my $tok (@{ $doc->find(sub { $_[1]->isa('PPI::Token::Quote::Interpolate') }) || []}) {
+        my $value = $tok->string;
+        next if $value =~ /[\\\$@%\'\"]/;
+        push @todo, $tok;
+    }
+
+    for my $tok (@{ $doc->find(sub { $_[1]->isa('PPI::Token::Quote::Literal') }) || []}) {
+        my $value = $tok->string;
+        next if $value =~ /[\']/;
+        push @todo, $tok;
+    }
+
+    for my $tok (@todo) {
+        my $value = $tok->string;
+        # I probably know what I am doing.
+        $tok->{content} = "'" . $tok->string . "'";
+        bless $tok, 'PPI::Token::Quote::Single';
+    }
 
     my $new_code = "$doc";
     return PPI::Document->new( \$new_code );
