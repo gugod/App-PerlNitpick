@@ -25,7 +25,7 @@ For example, here's a short list of simple strings:
     - q<肆拾貳>
     - qq{Latte Art}
     - "Spring"
-    - "Error: insufficient vaspin gas"
+    - "Error: insufficient vespene gas"
 
 While here are some counter examples:
 
