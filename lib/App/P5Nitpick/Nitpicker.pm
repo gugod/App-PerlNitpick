@@ -14,6 +14,7 @@ has rules => (
 );
 
 use App::P5Nitpick::Rule::QuoteSimpleStringWithSingleQuote;
+use App::P5Nitpick::Rule::RemoveUnusedImport;
 
 use PPI::Document;
 use File::Slurp qw(read_file write_file);

@@ -5,7 +5,7 @@ use warnings;
 use App::P5Nitpick;
 use App::P5Nitpick::Nitpicker;
 
-my @rules = qw( QuoteSimpleStringWithSingleQuote );
+my @rules = qw( RemoveUnusedImport QuoteSimpleStringWithSingleQuote );
 
 for my $file (@ARGV) {
     my $x = App::P5Nitpick::Nitpicker->new( file => $file, rules => \@rules );
