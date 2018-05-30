@@ -4,7 +4,7 @@ use Test2::V0;
 
 use App::P5Nitpick::Rule::RemoveUnusedImport;
 
-subtest "Remove only the imported subroutine" => sub {
+subtest 'Remove only the imported subroutine' => sub {
 
     my $code = <<CODE;
 use Foobar qw(Foo Baz);
@@ -19,7 +19,7 @@ CODE
     ok $code2 !~ m/Baz/s;
 };
 
-subtest "Remove only the entire `use` statement" => sub {
+subtest 'Remove only the entire `use` statement' => sub {
 
     my $code = <<CODE;
 use Foobar qw(Baz);
