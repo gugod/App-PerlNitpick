@@ -17,7 +17,6 @@ And it will be removed by this program.
 
 =cut
 
-use Data::Dumper 'Dumper';
 use Moose;
 use PPI::Document;
 
@@ -31,9 +30,7 @@ sub rewrite {
     my ($self) = @_;
     my $doc = $self->document;
 
-    ## To be implemented
     my @violations = $self->find_violations;
-    # print Dumper(\@violations);
     for my $tuple (@violations) {
         my ($word, $import) = @$tuple;
         my @args_literal = $import->{expr_qw}->literal;
@@ -68,7 +65,7 @@ sub find_violations {
 
     my $include_statements = $elem->find(sub { $_[1]->isa('PPI::Statement::Include') }) || [];
     for my $st (@$include_statements) {
-        next unless $st->type eq "use";
+        next unless $st->type eq 'use';
         my $included_module = $st->module;
         next if $is_special{"$included_module"};
 
@@ -80,8 +77,8 @@ sub find_violations {
             my $expr_str = "$expr";
 
             # Remove the quoting characters.
-            substr($expr_str, 0, 3) = "";
-            substr($expr_str, -1, 1) = "";
+            substr($expr_str, 0, 3) = '';
+            substr($expr_str, -1, 1) = '';
 
             my @words = split ' ', $expr_str;
             for my $w (@words) {
@@ -95,7 +92,7 @@ sub find_violations {
     }
 
     my %used;
-    for my $el_word (@{ $elem->find( sub { $_[1]->isa("PPI::Token::Word") }) ||[]}) {
+    for my $el_word (@{ $elem->find( sub { $_[1]->isa('PPI::Token::Word') }) ||[]}) {
         $used{"$el_word"}++;
     }
 
