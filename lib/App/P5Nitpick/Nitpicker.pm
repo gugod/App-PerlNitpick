@@ -27,7 +27,7 @@ sub rewrite {
     my $ppi = PPI::Document->new( \$code );
     for my $rule (@{$self->rules}) {
         my $rule_class = 'App::P5Nitpick::Rule::' . $rule;
-        $ppi = $rule_class->new( document => $ppi )->rewrite;
+        $rule_class->new( document => $ppi )->rewrite;
     }
     $ppi->save( $self->file );
     return;

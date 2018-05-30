@@ -40,8 +40,7 @@ sub rewrite {
         $_->remove for @$use_utf8_statements;
     }
 
-    my $new_code = "$doc";
-    return PPI::Document->new( \$new_code );
+    return $doc;
 }
 
 1;

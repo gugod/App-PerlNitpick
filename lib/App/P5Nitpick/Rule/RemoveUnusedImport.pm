@@ -51,8 +51,7 @@ sub rewrite {
         }
     }
 
-    my $new_code = "$doc";
-    return PPI::Document->new( \$new_code );
+    return $doc;
 }
 
 sub find_violations {

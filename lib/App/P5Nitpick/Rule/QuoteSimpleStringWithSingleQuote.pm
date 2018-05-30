@@ -75,8 +75,7 @@ sub rewrite {
         bless $tok, 'PPI::Token::Quote::Single';
     }
 
-    my $new_code = "$doc";
-    return PPI::Document->new( \$new_code );
+    return $doc;
 }
 
 1;
