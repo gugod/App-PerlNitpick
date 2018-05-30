@@ -23,18 +23,17 @@ sub rewrite {
     return $doc unless $use_utf8_statements;
     
     my $chars_outside_ascii_range = 0;
-    for (my $tok = $doc->first_token; $tok; $tok = $tok->next_token) {
+    for (my $tok = $doc->first_token; $tok && $chars_outside_ascii_range == 0; $tok = $tok->next_token) {
         next unless $tok->significant;
         my $src = $tok->content;
         utf8::decode($src);
 
-        my @c = split '', $src;
-        for (my $i = 0; $i < @c; $i++) {
-            if (ord($c[$i]) > 127) {
+        my $len = length($src);
+        for (my $i = 0; $i < $len && $chars_outside_ascii_range == 0; $i++) {
+            if (ord(substr($src, $i, 1)) > 127) {
                 $chars_outside_ascii_range++;
             }
         }
-        last if $chars_outside_ascii_range;
     }
 
     unless ($chars_outside_ascii_range) {
