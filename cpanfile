@@ -1,3 +1,4 @@
+requires 'File::Slurp';
 requires 'Moose';
 requires 'PPI';
 
