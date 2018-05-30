@@ -18,7 +18,7 @@ use App::P5Nitpick::Rule::RemoveUnusedImport;
 use App::P5Nitpick::Rule::RemoveEffectlessUTF8Pragma;
 
 use PPI::Document;
-use File::Slurp qw(read_file write_file);
+use File::Slurp qw(read_file);
 
 sub rewrite {
     my ($self) = @_;
