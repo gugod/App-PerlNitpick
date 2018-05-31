@@ -7,7 +7,7 @@ use Getopt::Long qw(GetOptions);
 use App::P5Nitpick;
 use App::P5Nitpick::Nitpicker;
 
-unshift @ARGV, split ' ', $ENV{PERL_NITPICK_OPTS};
+unshift @ARGV, split ' ', $ENV{PERL_NITPICK_OPTS} || '';
 
 my %args;
 GetOptions(
