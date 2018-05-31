@@ -56,6 +56,50 @@ sub rewrite {
     return $doc;
 }
 
+sub index_words {
+    my ($self) = @_;
+    my $include_statements = $elem->find(sub { $_[1]->isa('PPI::Statement::Include') }) || [];
+
+    my $idx = {
+        imported => {},
+        modules  => {},
+    };
+
+    for my $st (@$include_statements) {
+        my $included_module = $st->module;
+        next if $is_special{"$included_module"};
+
+        my $expr_qw = $st->find( sub { $_[1]->isa('PPI::Token::QuoteLike::Words'); }) or next;
+
+        if (@$expr_qw == 1) {
+            my $expr = $expr_qw->[0];
+
+            my $expr_str = "$expr";
+
+            # Remove the quoting characters.
+            substr($expr_str, 0, 3) = '';
+            substr($expr_str, -1, 1) = '';
+
+            my @words = split ' ', $expr_str;
+            for my $w (@words) {
+                next if $w =~ /\A [:\-\+]/x;
+
+                push @{ $idx->{imported}{$w} }, {
+                    statement => $st,
+                    expr_qw   => $expr,
+                };
+            }
+            push @{ $idx->{imported}{$included_module} }, { statement => $st };
+        }
+    }
+
+    for my $el_word (@{ $elem->find( sub { $_[1]->isa('PPI::Token::Word') }) ||[]}) {
+        push @{ $idx->{used}{"$el_word"} }, $el_word;
+    }
+
+    return $idx;
+}
+
 sub find_violations {
     my ($self) = @_;
 
