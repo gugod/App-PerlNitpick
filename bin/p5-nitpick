@@ -2,12 +2,28 @@
 use strict;
 use warnings;
 
+use Getopt::Long qw(GetOptions);
+
 use App::P5Nitpick;
 use App::P5Nitpick::Nitpicker;
 
-my @rules = qw( RemoveEffectlessUTF8Pragma RemoveUnusedImport QuoteSimpleStringWithSingleQuote );
+unshift @ARGV, split ' ', $ENV{PERL_NITPICK_OPTS};
 
-for my $file (@ARGV) {
-    my $x = App::P5Nitpick::Nitpicker->new( file => $file, rules => \@rules );
-    $x->rewrite;
+my %args;
+GetOptions(
+    \%args,
+    "l|list",
+    "r|rules=s",
+);
+
+
+
+if ($args{l}) {
+    die "...\n";
+} elsif ($args{r}) {
+    my @rules = split /\s*,\s*/, $args{r};
+    for my $file (@ARGV) {
+        my $x = App::P5Nitpick::Nitpicker->new( file => $file, rules => \@rules );
+        $x->rewrite;
+    }
 }
