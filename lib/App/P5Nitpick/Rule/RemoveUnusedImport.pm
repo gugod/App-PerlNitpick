@@ -37,18 +37,19 @@ sub rewrite {
         my @new_args_literal = grep { $_ ne $word } @args_literal;
 
         if (@new_args_literal == 0) {
-            $import->{statement}->delete;
+            # $import->{statement}->delete;
+            $import->{expr_qw}{content} = 'qw()';
+            $import->{expr_qw}{sections}[0]{size} = length($import->{expr_qw}{content});
         } else {
             # These 3 lines should probably be moved to the internal of PPI::Token::QuoteLike::Word
             $import->{expr_qw}{content} =~ s/\s ${word} \s/ /gsx;
             $import->{expr_qw}{content} =~ s/\b ${word} \b//gsx;
             $import->{expr_qw}{sections}[0]{size} = length($import->{expr_qw}{content});
 
-
-            my @new_args_literal = $import->{expr_qw}->literal;
-            if (@new_args_literal == 0) {
-                $import->{statement}->delete;
-            }
+            # my @new_args_literal = $import->{expr_qw}->literal;
+            # if (@new_args_literal == 0) {
+            #     $import->{statement}->delete;
+            # }
         }
     }
 
