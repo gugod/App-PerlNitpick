@@ -40,7 +40,8 @@ sub rewrite {
             $import->{statement}->delete;
         } else {
             # These 3 lines should probably be moved to the internal of PPI::Token::QuoteLike::Word
-            $import->{expr_qw}{content} =~ s/\s* ${word} \s*//gsx;
+            $import->{expr_qw}{content} =~ s/\s ${word} \s/ /gsx;
+            $import->{expr_qw}{content} =~ s/\b ${word} \b//gsx;
             $import->{expr_qw}{sections}[0]{size} = length($import->{expr_qw}{content});
 
 
