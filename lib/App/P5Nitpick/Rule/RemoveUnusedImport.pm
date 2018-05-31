@@ -26,6 +26,12 @@ has document => (
     isa => 'PPI::Document',
 );
 
+has idx => (
+    is => 'rw',
+    required => 0,
+    lazy_build => 1
+);
+
 sub rewrite {
     my ($self) = @_;
     my $doc = $self->document;
@@ -37,67 +43,46 @@ sub rewrite {
         my @new_args_literal = grep { $_ ne $word } @args_literal;
 
         if (@new_args_literal == 0) {
-            # $import->{statement}->delete;
-            $import->{expr_qw}{content} = 'qw()';
-            $import->{expr_qw}{sections}[0]{size} = length($import->{expr_qw}{content});
+            if ($self->looks_like_unused( $import->{statement}->module )) {
+                $import->{statement}->delete;
+            } else {
+                $import->{expr_qw}{content} = 'qw()';
+                $import->{expr_qw}{sections}[0]{size} = length($import->{expr_qw}{content});
+            }
         } else {
             # These 3 lines should probably be moved to the internal of PPI::Token::QuoteLike::Word
             $import->{expr_qw}{content} =~ s/\s ${word} \s/ /gsx;
             $import->{expr_qw}{content} =~ s/\b ${word} \b//gsx;
             $import->{expr_qw}{sections}[0]{size} = length($import->{expr_qw}{content});
 
-            # my @new_args_literal = $import->{expr_qw}->literal;
-            # if (@new_args_literal == 0) {
-            #     $import->{statement}->delete;
-            # }
+            my @new_args_literal = $import->{expr_qw}->literal;
+            if (@new_args_literal == 0 && $self->looks_like_unused($import->{statement}->module)) {
+                $import->{statement}->delete;
+            }
         }
     }
 
     return $doc;
 }
 
-sub index_words {
+sub _build_idx {
     my ($self) = @_;
-    my $include_statements = $elem->find(sub { $_[1]->isa('PPI::Statement::Include') }) || [];
-
     my $idx = {
-        imported => {},
-        modules  => {},
+        used_count => {},
     };
 
-    for my $st (@$include_statements) {
-        my $included_module = $st->module;
-        next if $is_special{"$included_module"};
-
-        my $expr_qw = $st->find( sub { $_[1]->isa('PPI::Token::QuoteLike::Words'); }) or next;
-
-        if (@$expr_qw == 1) {
-            my $expr = $expr_qw->[0];
-
-            my $expr_str = "$expr";
-
-            # Remove the quoting characters.
-            substr($expr_str, 0, 3) = '';
-            substr($expr_str, -1, 1) = '';
-
-            my @words = split ' ', $expr_str;
-            for my $w (@words) {
-                next if $w =~ /\A [:\-\+]/x;
-
-                push @{ $idx->{imported}{$w} }, {
-                    statement => $st,
-                    expr_qw   => $expr,
-                };
-            }
-            push @{ $idx->{imported}{$included_module} }, { statement => $st };
+    for my $el (@{ $self->document->find( sub { $_[1]->isa('PPI::Token::Word') }) ||[]}) {
+        unless ($el->parent->isa('PPI::Statement::Include') && (!$el->sprevious_sibling || $el->sprevious_sibling eq "use")) {
+            $idx->{used_count}{"$el"}++;
         }
     }
 
-    for my $el_word (@{ $elem->find( sub { $_[1]->isa('PPI::Token::Word') }) ||[]}) {
-        push @{ $idx->{used}{"$el_word"} }, $el_word;
-    }
-
     return $idx;
+}
+
+sub looks_like_unused {
+    my ($self, $module_name) = @_;
+    return ! $self->idx->{used_count}{$module_name};
 }
 
 sub find_violations {
