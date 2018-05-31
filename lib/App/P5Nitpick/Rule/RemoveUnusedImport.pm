@@ -61,7 +61,7 @@ sub find_violations {
     my $elem = $self->document;
 
     my %imported;
-    my %is_special = map { $_ => 1 } qw(use parent base constant);
+    my %is_special = map { $_ => 1 } qw(use parent base constant MouseX::Foreign);
 
     my $include_statements = $elem->find(sub { $_[1]->isa('PPI::Statement::Include') }) || [];
     for my $st (@$include_statements) {
@@ -82,7 +82,7 @@ sub find_violations {
 
             my @words = split ' ', $expr_str;
             for my $w (@words) {
-                next if $w =~ /\A [:\-]/x;
+                next if $w =~ /\A [:\-\+]/x;
                 push @{ $imported{$w} //=[] }, {
                     statement => $st,
                     expr_qw   => $expr,
