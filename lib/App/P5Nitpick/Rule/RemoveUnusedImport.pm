@@ -19,6 +19,7 @@ And it will be removed by this program.
 
 use Moose;
 use PPI::Document;
+use PPIx::Utils qw(is_function_call);
 
 has document => (
     is => 'ro',
@@ -74,6 +75,11 @@ sub _build_idx {
     for my $el (@{ $self->document->find( sub { $_[1]->isa('PPI::Token::Word') }) ||[]}) {
         unless ($el->parent->isa('PPI::Statement::Include') && (!$el->sprevious_sibling || $el->sprevious_sibling eq "use")) {
             $idx->{used_count}{"$el"}++;
+            if ($el =~ /::/ && is_function_call($el)) {
+                my ($module_name, $func_name) = $el =~ m/\A(.+)::([^:]+)\z/;
+                $idx->{used_count}{$module_name}++;
+                $idx->{used_count}{$func_name}++;
+            }
         }
     }
 
