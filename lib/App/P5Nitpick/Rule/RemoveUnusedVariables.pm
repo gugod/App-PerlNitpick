@@ -9,15 +9,16 @@ This nitpicking rules removes variabse that is declared but not used.
 
 use Moose;
 use PPI::Document;
+use Perl::Critic::Document;
+use Perl::Critic::Policy::Variables::ProhibitUnusedVariables;
+
+use App::P5Nitpick::PCPWrap;
 
 has document => (
     is => 'ro',
     required => 1,
     isa => 'PPI::Document',
 );
-
-use App::P5Nitpick::PCPWrap;
-use Perl::Critic::Policy::Variables::ProhibitUnusedVariables;
 
 no Moose;
 
@@ -38,7 +39,7 @@ sub rewrite {
         }
     );
 
-    $o->violates(undef, $self->document);
+    $o->violates(undef, Perl::Critic::Document->new(-source => $self->document));
 
     return $self->document;
 }
