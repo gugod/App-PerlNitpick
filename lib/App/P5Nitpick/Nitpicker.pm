@@ -16,6 +16,7 @@ has rules => (
 use App::P5Nitpick::Rule::QuoteSimpleStringWithSingleQuote;
 use App::P5Nitpick::Rule::RemoveUnusedImport;
 use App::P5Nitpick::Rule::RemoveEffectlessUTF8Pragma;
+use App::P5Nitpick::Rule::UseMouseWithNoMouse;
 
 use PPI::Document;
 use File::Slurp qw(read_file);
