@@ -38,12 +38,9 @@ sub rewrite {
         }
     );
 
-
     $o->violates(undef, $self->document);
 
-    require Data::Dumper;
-
-    print Data::Dumper::Dumper([$o, \@violates]);
+    return $self->document;
 }
 
 1;

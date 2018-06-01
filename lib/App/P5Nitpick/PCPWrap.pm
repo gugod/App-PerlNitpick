@@ -22,7 +22,6 @@ NEW_PKG
 
 sub violation {
     my ($self, $msg, $expl, $elem) = @_;
-    print STDERR "==> $msg\n";
     $self->{__p5nitpick_pcpwrap_on_violate_cb}->($msg, $expl, $elem);
 }
 
