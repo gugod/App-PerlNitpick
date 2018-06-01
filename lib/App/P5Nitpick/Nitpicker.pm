@@ -13,10 +13,18 @@ has rules => (
     isa => 'ArrayRef[Str]',
 );
 
+has inplace => (
+    is => 'ro',
+    required => 1,
+    default  => 0,
+    isa => 'Bool',
+);
+
 use App::P5Nitpick::Rule::QuoteSimpleStringWithSingleQuote;
 use App::P5Nitpick::Rule::RemoveUnusedImport;
 use App::P5Nitpick::Rule::RemoveEffectlessUTF8Pragma;
 use App::P5Nitpick::Rule::UseMouseWithNoMouse;
+use App::P5Nitpick::Rule::RemoveUnusedVariables;
 
 use PPI::Document;
 use File::Slurp qw(read_file);
@@ -24,13 +32,16 @@ use File::Slurp qw(read_file);
 sub rewrite {
     my ($self) = @_;
 
-    my $code = read_file( $self->file );
-    my $ppi = PPI::Document->new( \$code );
+    my $ppi = PPI::Document->new( $self->file );
     for my $rule (@{$self->rules}) {
         my $rule_class = 'App::P5Nitpick::Rule::' . $rule;
         $rule_class->new( document => $ppi )->rewrite;
     }
-    $ppi->save( $self->file );
+    if ($self->inplace) {
+        $ppi->save( $self->file );
+    } else {
+        $ppi->save( $self->file . ".new" );
+    }
     return;
 }
 
