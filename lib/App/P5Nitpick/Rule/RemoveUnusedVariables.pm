@@ -25,7 +25,6 @@ no Moose;
 sub rewrite {
     my ($self) = @_;
 
-    my @violates;
     my $o = App::P5Nitpick::PCPWrap->new(
         'Perl::Critic::Policy::Variables::ProhibitUnusedVariables',
         sub {
