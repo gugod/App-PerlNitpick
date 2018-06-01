@@ -1,29 +1,22 @@
 package App::P5Nitpick::PCPWrap;
 use strict;
 use warnings;
+use Object::Method;
 
 sub new {
     my ($class, $pcp_class, $on_violate_cb) = @_;
 
     my $o = $pcp_class->new;
 
-    $o->{__p5nitpick_pcpwrap_pcp_class} = $pcp_class;
-    $o->{__p5nitpick_pcpwrap_on_violate_cb} = $on_violate_cb,
+    method(
+        $o,
+        violation => sub {
+            my ($self, $msg, $expl, $elem) = @_;
+            return [$msg, $expl, $elem];
+        }
+    );
 
-    my $new_class = "App::P5Nitpick::PCPWrap::${pcp_class}";
-    eval <<"NEW_PKG";
-package $new_class;
-our \@ISA = qw(App::P5Nitpick::PCPWrap $pcp_class);
-NEW_PKG
-
-    bless $o, $new_class;
     return $o;
 }
-
-sub violation {
-    my ($self, $msg, $expl, $elem) = @_;
-    $self->{__p5nitpick_pcpwrap_on_violate_cb}->($msg, $expl, $elem);
-}
-
 
 1;

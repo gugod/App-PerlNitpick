@@ -25,20 +25,22 @@ no Moose;
 sub rewrite {
     my ($self) = @_;
 
-    my $o = App::P5Nitpick::PCPWrap->new(
-        'Perl::Critic::Policy::Variables::ProhibitUnusedVariables',
-        sub {
-            my ($msg, $explain, $el) = @_;
+    my $o = App::P5Nitpick::PCPWrap->new('Perl::Critic::Policy::Variables::ProhibitUnusedVariables');
 
-            if ($el->variables == 1) {
-                $el->remove;
-            } else {
-                # TODO
-            }
-        }
+    my @vio = $o->violates(
+        undef,
+        Perl::Critic::Document->new(-source => $self->document)
     );
 
-    $o->violates(undef, Perl::Critic::Document->new(-source => $self->document));
+    for (@vio) {
+        my ($msg, $explain, $el) = @$_;
+        if ($el->variables == 1) {
+            $el->remove;
+        } else {
+            # TODO
+        }
+
+    }
 
     return $self->document;
 }

@@ -4,6 +4,7 @@ requires 'Moose';
 requires 'PPI';
 requires 'PPIx::Utils';
 requires 'Perl::Critic';
+requires 'Object::Method';
 
 on test => sub {
     requires 'Test2::V0';
