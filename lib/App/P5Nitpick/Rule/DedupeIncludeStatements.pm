@@ -9,6 +9,20 @@ has document => (
 );
 
 sub rewrite {
+    my ($self) = @_;
+
+    my %used;
+    my @to_delete;
+    for my $el (@{ $self->document->find('PPI::Statement::Include') ||[]}) {
+        next unless $el->type && $el->type eq 'use';
+        if ($used{$module}) {
+            push @to_delete, $el;
+            push @{ $used{$module}{args_to_append} }, $el->arguments;
+        } else {
+            $used{$module} = { element => $el, args_to_append => [] };
+        }
+    }
+    
 }
 
 1;
