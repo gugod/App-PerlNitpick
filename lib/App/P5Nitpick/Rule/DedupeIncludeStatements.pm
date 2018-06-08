@@ -1,4 +1,15 @@
 package App::P5Nitpick::Rule::DedupeIncludeStatements;
+use Moose;
+use PPI::Document;
+
+has document => (
+    is => 'ro',
+    required => 1,
+    isa => 'PPI::Document',
+);
+
+sub rewrite {
+}
 
 1;
 
