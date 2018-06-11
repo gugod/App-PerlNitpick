@@ -3,6 +3,7 @@ use strict;
 use Params::Util   qw{_INSTANCE _STRING};
 
 use parent 'PPI::Transform';
+use PPI::Structure::List;
 
 sub document {
     my $self = shift;
@@ -13,10 +14,14 @@ sub document {
     for my $tok (@$qwtokens) {
         my @words = $tok->literal;
         my $expr = '(' . join(', ', map { "'$_'" } @words) . ')';
-        my $el = PPI::Structure::List->new( $expr );
+
+        my $el = PPI::Document->new(\$expr);
 
         # XXX: Does not work. Because $tok and $el is different class.
-        $tok->replace($el);
+        # XXX: $tok->replace($el);
+        my $parent = $tok->parent;
+        $parent->__insert_before_child($tok, $el);
+        $tok->delete;
     }
 
     return 0+@$qwtokens;
