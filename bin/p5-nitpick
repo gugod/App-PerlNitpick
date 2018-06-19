@@ -17,10 +17,8 @@ GetOptions(
     "i|inplace",
 );
 
-
-
 if ($args{l}) {
-    die "...\n";
+    App::P5Nitpick::Nitpicker->list_rules;
 } elsif ($args{r}) {
     my @rules = split /\s*,\s*/, $args{r};
     for my $file (@ARGV) {

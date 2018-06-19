@@ -21,7 +21,19 @@ has inplace => (
 );
 
 use PPI::Document;
+use Module::Find qw(useall);
 use File::Slurp qw(read_file);
+
+my @rules = useall App::P5Nitpick::Rule;
+
+sub list_rules {
+    my ($class) = @_;
+    for my $rule (@rules) {
+        $rule =~ s/\A .+ :://x;
+        print "$rule\n";
+    }
+    return;
+}
 
 sub rewrite {
     my ($self) = @_;
@@ -30,7 +42,6 @@ sub rewrite {
     for my $rule (@{$self->rules}) {
         # Require modules dynamically. Good or bad ?
         my $rule_class = 'App::P5Nitpick::Rule::' . $rule;
-        eval "require $rule_class" or die "Fail to load $rule_class: $@";
         $rule_class->new( document => $ppi )->rewrite;
     }
     if ($self->inplace) {
