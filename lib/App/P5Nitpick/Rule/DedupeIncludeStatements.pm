@@ -15,6 +15,7 @@ sub rewrite {
     my @to_delete;
     for my $el (@{ $self->document->find('PPI::Statement::Include') ||[]}) {
         next unless $el->type && $el->type eq 'use';
+        my $module = $el->module;
         if ($used{$module}) {
             push @to_delete, $el;
             push @{ $used{$module}{args_to_append} }, $el->arguments;
