@@ -27,12 +27,7 @@ sub rewrite {
         for my $el (@{ $el0->find('PPI::Token::Operator') ||[]}) {
             next unless $el->content eq ',';
             my $next_el = $el->next_sibling or next;
-            if ($next_el->isa('PPI::Token::Whitespace')) {
-                # Make sure there is only one whitespace
-                if ($next_el->content =~ /  +/) {
-                    $next_el->set_content(' ');
-                }
-            } else {
+            unless ($next_el->isa('PPI::Token::Whitespace')) {
                 # Insert a new one.
                 my $wht = PPI::Token::Whitespace->new(' ');
                 $el->insert_after($wht);
