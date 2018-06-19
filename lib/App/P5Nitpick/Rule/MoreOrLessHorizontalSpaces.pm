@@ -14,10 +14,10 @@ no Moose;
 sub rewrite {
     my ($self) = @_;
     my $doc = $self->document;
-    for my $el0 (@{ $doc->find('PPI::Structure::List') }) {
-        for my $el (@{ $el0->find('PPI::Token::Operator') }) {
+    for my $el0 (@{ $doc->find('PPI::Structure::List') ||[]}) {
+        for my $el (@{ $el0->find('PPI::Token::Operator') ||[]}) {
             next unless $el->content eq ',';
-            my $next_el = $el->next_sibling;
+            my $next_el = $el->next_sibling or next;
             if ($next_el->isa('PPI::Token::Whitespace')) {
                 # Make sure there is only one whitespace
                 if ($next_el->content =~ /  +/) {
