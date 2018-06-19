@@ -20,12 +20,6 @@ has inplace => (
     isa => 'Bool',
 );
 
-use App::P5Nitpick::Rule::QuoteSimpleStringWithSingleQuote;
-use App::P5Nitpick::Rule::RemoveUnusedImport;
-use App::P5Nitpick::Rule::RemoveEffectlessUTF8Pragma;
-use App::P5Nitpick::Rule::UseMouseWithNoMouse;
-use App::P5Nitpick::Rule::RemoveUnusedVariables;
-
 use PPI::Document;
 use File::Slurp qw(read_file);
 
@@ -34,7 +28,9 @@ sub rewrite {
 
     my $ppi = PPI::Document->new( $self->file ) or return;
     for my $rule (@{$self->rules}) {
+        # Require modules dynamically. Good or bad ?
         my $rule_class = 'App::P5Nitpick::Rule::' . $rule;
+        eval "require $rule_class" or die "Fail to load $rule_class: $@";
         $rule_class->new( document => $ppi )->rewrite;
     }
     if ($self->inplace) {
