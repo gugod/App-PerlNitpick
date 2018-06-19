@@ -32,7 +32,7 @@ use File::Slurp qw(read_file);
 sub rewrite {
     my ($self) = @_;
 
-    my $ppi = PPI::Document->new( $self->file );
+    my $ppi = PPI::Document->new( $self->file ) or return;
     for my $rule (@{$self->rules}) {
         my $rule_class = 'App::P5Nitpick::Rule::' . $rule;
         $rule_class->new( document => $ppi )->rewrite;
