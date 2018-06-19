@@ -1,4 +1,4 @@
-package App::P5Nitpick::Rule::MoreOrLessHorizontalSpaces ;
+package App::P5Nitpick::Rule::MoreOrLessSpaces;
 use Moose;
 use PPI::Document;
 use PPI::Token::Whitespace;
@@ -14,6 +14,15 @@ no Moose;
 sub rewrite {
     my ($self) = @_;
     my $doc = $self->document;
+
+    for my $el (@{ $doc->find('PPI::Token::Whitespace') ||[]}) {
+        next unless $el->content eq "\n";
+
+        my $prev1 = $el->previous_sibling or next;
+        my $prev2 = $prev1->previous_sibling or next;
+        $el->delete if $prev1->isa('PPI::Token::Whitespace') && $prev1->content eq "\n" && $prev2->isa('PPI::Token::Whitespace') && $prev2->content eq "\n";
+    }
+
     for my $el0 (@{ $doc->find('PPI::Structure::List') ||[]}) {
         for my $el (@{ $el0->find('PPI::Token::Operator') ||[]}) {
             next unless $el->content eq ',';
@@ -38,7 +47,7 @@ sub rewrite {
 
 __END__
 
-=head1 MoreOrLessHorizontalSpaces
+=head1 MoreOrLessSpaces
 
 In this rule, space characters is inserted or removed within one line
 between punctuation boundaries.
