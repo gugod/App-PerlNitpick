@@ -3,19 +3,12 @@ use Moose;
 use PPI::Document;
 use PPI::Token::Whitespace;
 
-has document => (
-    is => 'ro',
-    required => 1,
-    isa => 'PPI::Document',
-);
-
 no Moose;
 
 sub rewrite {
-    my ($self) = @_;
-    my $doc = $self->document;
+    my ($self, $document) = @_;
 
-    for my $el (@{ $doc->find('PPI::Token::Whitespace') ||[]}) {
+    for my $el (@{ $document->find('PPI::Token::Whitespace') ||[]}) {
         next unless $el->content eq "\n";
 
         my $prev1 = $el->previous_sibling or next;
@@ -23,7 +16,7 @@ sub rewrite {
         $el->delete if $prev1->isa('PPI::Token::Whitespace') && $prev1->content eq "\n" && $prev2->isa('PPI::Token::Whitespace') && $prev2->content eq "\n";
     }
 
-    for my $el0 (@{ $doc->find('PPI::Structure::List') ||[]}) {
+    for my $el0 (@{ $document->find('PPI::Structure::List') ||[]}) {
         for my $el (@{ $el0->find('PPI::Token::Operator') ||[]}) {
             next unless $el->content eq ',';
             my $next_el = $el->next_sibling or next;
@@ -35,7 +28,7 @@ sub rewrite {
         }
     }
 
-    return $self->document;
+    return $document;
 }
 
 1;

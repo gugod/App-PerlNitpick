@@ -14,22 +14,16 @@ use Perl::Critic::Policy::Variables::ProhibitUnusedVariables;
 
 use App::P5Nitpick::PCPWrap;
 
-has document => (
-    is => 'ro',
-    required => 1,
-    isa => 'PPI::Document',
-);
-
 no Moose;
 
 sub rewrite {
-    my ($self) = @_;
+    my ($self, $doc) = @_;
 
     my $o = App::P5Nitpick::PCPWrap->new('Perl::Critic::Policy::Variables::ProhibitUnusedVariables');
 
     my @vio = $o->violates(
         undef,
-        Perl::Critic::Document->new(-source => $self->document)
+        Perl::Critic::Document->new(-source => $doc)
     );
 
     for (@vio) {
@@ -42,7 +36,7 @@ sub rewrite {
 
     }
 
-    return $self->document;
+    return $doc;
 }
 
 1;

@@ -1,19 +1,12 @@
 package App::P5Nitpick::Rule::DedupeIncludeStatements;
 use Moose;
-use PPI::Document;
-
-has document => (
-    is => 'ro',
-    required => 1,
-    isa => 'PPI::Document',
-);
 
 sub rewrite {
-    my ($self) = @_;
+    my ($self, $document) = @_;
 
     my %used;
     my @to_delete;
-    for my $el (@{ $self->document->find('PPI::Statement::Include') ||[]}) {
+    for my $el (@{ $document->find('PPI::Statement::Include') ||[]}) {
         next unless $el->type && $el->type eq 'use';
         my $module = $el->module;
         if ($used{$module}) {
@@ -23,9 +16,11 @@ sub rewrite {
             $used{$module} = { element => $el, args_to_append => [] };
         }
     }
-    
+
+    return $document;
 }
 
+no Moose;
 1;
 
 __END__

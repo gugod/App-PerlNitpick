@@ -4,7 +4,7 @@ use Moose;
 use PPI::Document;
 
 sub rewrite {
-    my ($self) = @_;
+    my ($self, $document) = @_;
 }
 
 no Moose;

@@ -13,25 +13,18 @@ is present in the file if a 'use Mouse' is there.
 use Moose;
 use PPI::Document;
 
-has document => (
-    is => 'ro',
-    required => 1,
-    isa => 'PPI::Document',
-);
-
 sub rewrite {
-    my ($self) = @_;
-    my $doc = $self->document;
+    my ($self, $doc) = @_;
 
-    if ($self->has_use_mouse_but_has_no_no_mouse()) {
-        $self->append_no_mouse();
+    if ($self->has_use_mouse_but_has_no_no_mouse($doc)) {
+        $self->append_no_mouse($doc);
     }
     return $doc;
 }
 
 sub has_use_mouse_but_has_no_no_mouse {
-    my ($self) = @_;
-    my $include_statements = $self->document->find(sub { $_[1]->isa('PPI::Statement::Include') }) || [];
+    my ($self, $doc) = @_;
+    my $include_statements = $doc->find(sub { $_[1]->isa('PPI::Statement::Include') }) || [];
 
     my ($has_use, $has_no);
     for my $st (@$include_statements) {
@@ -47,16 +40,15 @@ sub has_use_mouse_but_has_no_no_mouse {
 }
 
 sub append_no_mouse {
-    my ($self) = @_;
+    my ($self, $doc) = @_;
 
-    # my $new_el = PPI::Statement::Include->new('no Mouse;');
-    my $doc = PPI::Document->new(\"no Mouse;");
-    my $el = $doc->find_first('PPI::Statement::Include');
+    my $el = PPI::Document->new(\"no Mouse;")->find_first('PPI::Statement::Include');
     $el->remove;
 
-    my @child = $self->document->schildren();
+    my @child = $doc->schildren();
     $child[-1]->insert_before($el);
     $child[-1]->insert_before(PPI::Token::Whitespace->new("\n"));
+    return $doc;
 }
 
 1;

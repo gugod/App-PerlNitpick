@@ -40,9 +40,8 @@ sub rewrite {
 
     my $ppi = PPI::Document->new( $self->file ) or return;
     for my $rule (@{$self->rules}) {
-        # Require modules dynamically. Good or bad ?
         my $rule_class = 'App::P5Nitpick::Rule::' . $rule;
-        $rule_class->new( document => $ppi )->rewrite;
+        $ppi = $rule_class->new->rewrite($ppi);
     }
     if ($self->inplace) {
         $ppi->save( $self->file );

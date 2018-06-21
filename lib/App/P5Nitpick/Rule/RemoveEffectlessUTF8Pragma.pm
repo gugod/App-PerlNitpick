@@ -4,15 +4,8 @@ package App::P5Nitpick::Rule::RemoveEffectlessUTF8Pragma;
 use Moose;
 use PPI::Document;
 
-has document => (
-    is => 'ro',
-    required => 1,
-    isa => 'PPI::Document',
-);
-
 sub rewrite {
-    my ($self) = @_;
-    my $doc = $self->document;
+    my ($self, $doc) = @_;
 
     my $use_utf8_statements = $doc->find(
         sub {

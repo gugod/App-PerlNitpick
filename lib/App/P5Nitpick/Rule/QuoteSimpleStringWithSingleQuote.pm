@@ -42,16 +42,8 @@ without changing its value -- then it is a simple string.
 use Moose;
 use PPI::Document;
 
-has document => (
-    is => 'ro',
-    required => 1,
-    isa => 'PPI::Document',
-);
-
 sub rewrite {
-    my ($self) = @_;
-
-    my $doc = $self->document;
+    my ($self, $doc) = @_;
 
     $_->simplify for @{$doc->find(sub { $_[1]->isa('PPI::Token::Quote::Double') }) || []};
 

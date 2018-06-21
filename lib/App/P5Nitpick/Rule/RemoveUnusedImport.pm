@@ -21,23 +21,16 @@ use Moose;
 use PPI::Document;
 use PPIx::Utils qw(is_function_call);
 
-has document => (
-    is => 'ro',
-    required => 1,
-    isa => 'PPI::Document',
-);
-
 has idx => (
     is => 'rw',
     required => 0,
-    lazy_build => 1
 );
 
 sub rewrite {
-    my ($self) = @_;
-    my $doc = $self->document;
+    my ($self, $doc) = @_;
 
-    my @violations = $self->find_violations;
+    $self->_build_idx($doc);
+    my @violations = $self->find_violations($doc);
     for my $tuple (@violations) {
         my ($word, $import) = @$tuple;
         my @args_literal = $import->{expr_qw}->literal;
@@ -67,12 +60,12 @@ sub rewrite {
 }
 
 sub _build_idx {
-    my ($self) = @_;
+    my ($self, $doc) = @_;
     my $idx = {
         used_count => {},
     };
 
-    for my $el (@{ $self->document->find( sub { $_[1]->isa('PPI::Token::Word') }) ||[]}) {
+    for my $el (@{ $doc->find( sub { $_[1]->isa('PPI::Token::Word') }) ||[]}) {
         unless ($el->parent->isa('PPI::Statement::Include') && (!$el->sprevious_sibling || $el->sprevious_sibling eq "use")) {
             $idx->{used_count}{"$el"}++;
             if ($el =~ /::/ && is_function_call($el)) {
@@ -82,7 +75,7 @@ sub _build_idx {
             }
         }
     }
-
+    $self->idx($idx);
     return $idx;
 }
 
@@ -92,9 +85,7 @@ sub looks_like_unused {
 }
 
 sub find_violations {
-    my ($self) = @_;
-
-    my $elem = $self->document;
+    my ($self, $elem) = @_;
 
     my %imported;
     my %is_special = map { $_ => 1 } qw(use parent base constant MouseX::Foreign);
