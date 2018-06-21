@@ -109,7 +109,7 @@ sub find_violations {
 
             my @words = split ' ', $expr_str;
             for my $w (@words) {
-                next if $w =~ /\A [:\-\+]/x;
+                next if $w =~ /\A [:\-\+\$@%]/x;
                 push @{ $imported{$w} //=[] }, {
                     statement => $st,
                     expr_qw   => $expr,
