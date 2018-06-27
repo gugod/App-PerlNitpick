@@ -24,7 +24,7 @@ use PPI::Document;
 use Module::Find qw(useall);
 use File::Slurp qw(read_file);
 
-my @rules = useall App::P5Nitpick::Rule;
+my @rules = sort { $a cmp $b } useall App::P5Nitpick::Rule;
 
 sub list_rules {
     my ($class) = @_;
