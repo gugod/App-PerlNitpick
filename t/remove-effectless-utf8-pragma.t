@@ -12,7 +12,7 @@ CODE
 
 my $doc = PPI::Document->new(\$code);
 my $o = App::P5Nitpick::Rule::RemoveEffectlessUTF8Pragma->new( document => $doc );
-my $doc2 = $o->rewrite();
+my $doc2 = $o->rewrite($doc);
 my $code2 = "$doc2";
 
 ok $code2 !~ m/^\s?use\s+utf8\s+;/s;

@@ -13,7 +13,7 @@ CODE
 
     my $doc = PPI::Document->new(\$code);
     my $o = App::P5Nitpick::Rule::RemoveUnusedImport->new( document => $doc );
-    my $doc2 = $o->rewrite();
+    my $doc2 = $o->rewrite($doc);
     my $code2 = "$doc2";
 
     ok $code2 !~ m/Baz/s;
@@ -28,7 +28,7 @@ CODE
 
     my $doc = PPI::Document->new(\$code);
     my $o = App::P5Nitpick::Rule::RemoveUnusedImport->new( document => $doc );
-    my $doc2 = $o->rewrite();
+    my $doc2 = $o->rewrite($doc);
     my $code2 = "$doc2";
 
     ok $code2 !~ m/Baz/s;
@@ -44,7 +44,7 @@ CODE
 
     my $doc = PPI::Document->new(\$code);
     my $o = App::P5Nitpick::Rule::RemoveUnusedImport->new( document => $doc );
-    my $doc2 = $o->rewrite();
+    my $doc2 = $o->rewrite($doc);
     my $code2 = "$doc2";
 
     is $code2, <<NEWCODE;
