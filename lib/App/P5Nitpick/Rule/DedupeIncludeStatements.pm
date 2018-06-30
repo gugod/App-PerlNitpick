@@ -9,12 +9,15 @@ sub rewrite {
     for my $el (@{ $document->find('PPI::Statement::Include') ||[]}) {
         next unless $el->type && $el->type eq 'use';
         my $module = $el->module;
-        if ($used{$module}) {
+        if ($used{"$el"}) {
             push @to_delete, $el;
-            push @{ $used{$module}{args_to_append} }, $el->arguments;
         } else {
-            $used{$module} = { element => $el, args_to_append => [] };
+            $used{"$el"} = 1;
         }
+    }
+
+    for my $el (@to_delete) {
+        $el->remove;
     }
 
     return $document;
@@ -27,16 +30,15 @@ __END__
 
 =head1 DedupeIncludeStatements
 
-In this rule, multiple "use" staments of the same module are merged.
+In this rule, multiple identical "use" staments of the same module are merged.
 
 For example, this code:
 
-    use File::Temp 'tempfile';
+    use File::Temp;
     use Foobar;
-    use File::Temp 'tempdir';
+    use File::Temp;
 
 ... is transformed to:
 
-    use File::Temp ('tempfile', 'tempdir');
+    use File::Temp;
     use Foobar;
-
