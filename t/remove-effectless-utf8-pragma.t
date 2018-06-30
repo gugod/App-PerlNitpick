@@ -11,7 +11,7 @@ use  utf8;
 CODE
 
 my $doc = PPI::Document->new(\$code);
-my $o = App::P5Nitpick::Rule::RemoveEffectlessUTF8Pragma->new( document => $doc );
+my $o = App::P5Nitpick::Rule::RemoveEffectlessUTF8Pragma->new();
 my $doc2 = $o->rewrite($doc);
 my $code2 = "$doc2";
 
