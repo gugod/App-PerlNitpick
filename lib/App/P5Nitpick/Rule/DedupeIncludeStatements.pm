@@ -9,10 +9,11 @@ sub rewrite {
     for my $el (@{ $document->find('PPI::Statement::Include') ||[]}) {
         next unless $el->type && $el->type eq 'use';
         my $module = $el->module;
-        if ($used{"$el"}) {
+        my $code = "$el";
+        if ($used{$code}) {
             push @to_delete, $el;
         } else {
-            $used{"$el"} = 1;
+            $used{$code} = 1;
         }
     }
 
