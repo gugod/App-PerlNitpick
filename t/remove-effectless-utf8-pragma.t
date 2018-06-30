@@ -17,7 +17,5 @@ my $code2 = "$doc2";
 
 ok $code2 !~ m/^\s?use\s+utf8\s+;/s;
 
-diag $code2;
-
 done_testing;
 
