@@ -9,11 +9,22 @@ sub rewrite {
     my ($self, $document) = @_;
 
     for my $el (@{ $document->find('PPI::Token::Whitespace') ||[]}) {
-        next unless $el->content eq "\n";
+        next if $el->parent->isa('PPI::Statement');
+        next unless $el->content =~ m/\A +\n( *)/;
+        $el->set_content("\n$1");
+    }
+
+    for my $el (@{ $document->find('PPI::Token::Whitespace') ||[]}) {
+        next if $el->parent->isa('PPI::Statement');
 
         my $prev1 = $el->previous_sibling or next;
         my $prev2 = $prev1->previous_sibling or next;
-        $el->delete if $prev1->isa('PPI::Token::Whitespace') && $prev1->content eq "\n" && $prev2->isa('PPI::Token::Whitespace') && $prev2->content eq "\n";
+        next unless $prev1->isa('PPI::Token::Whitespace') && $prev1->content eq "\n" && $prev2->isa('PPI::Token::Whitespace') && $prev2->content eq "\n";
+        if ($el->content eq "\n") {
+            $el->delete;
+        } elsif ($el->content =~ m/\A\n( +)\z/) {
+            $el->set_content("$1");
+        }
     }
 
     for my $el0 (@{ $document->find('PPI::Structure::List') ||[]}) {

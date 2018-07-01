@@ -8,6 +8,28 @@ use App::P5Nitpick::Rule::MoreOrLessSpaces;
 my @tests = (
     [q{my ($x,$y,$z) = something($a,$b,$c);},
      q{my ($x, $y, $z) = something($a, $b, $c);}],
+    [q{
+$a=1;
+
+
+$b=1;
+},
+     q{
+$a=1;
+
+$b=1;
+}],
+    [q{
+$a=1;
+
+    
+$b=1;
+},
+     q{
+$a=1;
+
+$b=1;
+}],
 );
 
 for my $t (@tests) {
