@@ -12,6 +12,10 @@ perl:
   - "5.18"
 
 before_install:
+  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then curl -L https://install.perlbrew.pl | bash ; source $HOME/perl5/perlbrew/etc/bashrc; perlbrew install -j4 --notest --as perl-$TRAVIS_PERL_VERSION $(perlbrew available | grep $TRAVIS_PERL_VERSION | cut -c4- | head -1); perlbrew clean; perlbrew install-cpanm; perlbrew use "$TRAVIS_PERL_VERSION"; fi
+  - perlbrew --version
+  - cpanm --version
+  - perl --version
   - cpanm --notest Test2::Harness
 
 script:
