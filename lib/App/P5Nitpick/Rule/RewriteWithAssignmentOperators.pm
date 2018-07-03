@@ -14,7 +14,10 @@ sub rewrite {
         $op->content eq '=' && $op->parent->isa('PPI::Statement') && $op->parent->schildren == 6 && do {
             my $tok = $op->sprevious_sibling;
             $tok->isa('PPI::Token::Symbol') && $tok->raw_type eq '$'
-        } 
+        }  && do {
+            my $op2 = $op->parent->schild(3);
+            $op2->isa('PPI::Token::Operator') && $op2->content ne '->'
+        }
     } @{$document->find('PPI::Token::Operator') // []};
     return $document unless @op_assign;
 
