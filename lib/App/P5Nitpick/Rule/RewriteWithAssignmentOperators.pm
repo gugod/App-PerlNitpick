@@ -18,7 +18,7 @@ sub rewrite {
             my $op2 = $op->parent->schild(3);
             $op2->isa('PPI::Token::Operator') && $op2->content ne '->'
         }
-    } @{$document->find('PPI::Token::Operator') // []};
+    } @{$document->find('PPI::Token::Operator') || []};
     return $document unless @op_assign;
 
     my @found;
