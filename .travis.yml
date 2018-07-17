@@ -16,7 +16,7 @@ before_install:
   - perlbrew --version
   - cpanm --version
   - perl --version
-  - cpanm --notest Test2::Harness
+  - cpanm --notest List::Util~1.50 Test2::Harness
 
 script:
   yath --qvf
