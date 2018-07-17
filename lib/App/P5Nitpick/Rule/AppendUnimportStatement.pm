@@ -15,7 +15,7 @@ use PPI::Document;
 sub rewrite {
     my ($self, $doc) = @_;
 
-    for my $module ('Moose', 'Mouse', 'Moo') {
+    for my $module ('Moose', 'Mouse', 'Moo', 'Moose::Role', 'Mouse::Role') {
         if ($self->has_import_but_has_no_unimport($doc, $module)) {
             $self->append_unimport($doc, $module);
         }
