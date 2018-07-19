@@ -6,6 +6,7 @@ requires 'PPIx::Utils';
 requires 'Perl::Critic';
 requires 'Object::Method';
 requires 'Module::Find';
+requires 'String::PerlQuote';
 
 on test => sub {
     requires 'Test2::V0';
