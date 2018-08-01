@@ -15,6 +15,7 @@ constraints:
 
     - is a string literal (not variable)
     - is quoted with: q, qq, double-quote ("), or single-quote (')
+    - is a single-line string
     - has no interpolations inside
     - has no quote characters inside
     - has no sigil characters inside
@@ -45,18 +46,23 @@ use PPI::Document;
 sub rewrite {
     my ($self, $doc) = @_;
 
-    $_->simplify for @{$doc->find(sub { $_[1]->isa('PPI::Token::Quote::Double') }) || []};
+    for my $tok (@{$doc->find(sub { $_[1]->isa('PPI::Token::Quote::Double') }) || []}) {
+        next if $tok->interpolations;
+        my $value = $tok->string;
+        next if index($value, "\n") > 0;
+        $tok->simplify;
+    }
 
     my @todo;
     for my $tok (@{ $doc->find(sub { $_[1]->isa('PPI::Token::Quote::Interpolate') }) || []}) {
         my $value = $tok->string;
-        next if $value =~ /[\\\$@%\'\"]/;
+        next if $value =~ /[\\\$@%\'\"]/ || index($value, "\n") > 0;
         push @todo, $tok;
     }
 
     for my $tok (@{ $doc->find(sub { $_[1]->isa('PPI::Token::Quote::Literal') }) || []}) {
         my $value = $tok->string;
-        next if $value =~ /[\']/;
+        next if $value =~ /\'/ || index($value, "\n") > 0;
         push @todo, $tok;
     }
 

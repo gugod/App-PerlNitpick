@@ -6,6 +6,11 @@ use App::P5Nitpick::Rule::QuoteSimpleStringWithSingleQuote;
 
 my @tests = (
     [q{print "riho";}, q{print 'riho';}],
+    # Multiline strings. String literal newline characetrs.
+    [q{print "riho
+";}, q{print "riho
+";}],
+
 );
 
 for my $t (@tests) {
