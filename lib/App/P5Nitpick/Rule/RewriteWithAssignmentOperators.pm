@@ -10,14 +10,14 @@ sub rewrite {
     my ($self, $document) = @_;
 
     my @found = grep {
-        my $c = $_->schild(3);
-        $c->isa('PPI::Token::Operator') && $c->content ne '->'
-    } grep {
         my $c1 = $_->schild(0);
         my $c2 = $_->schild(2);
         $c1->isa('PPI::Token::Symbol') && $c1->raw_type eq '$' &&
         $c2->isa('PPI::Token::Symbol') && $c2->raw_type eq '$' &&
         $c1->content && $c2->content
+    } grep {
+        my $c = $_->schild(3);
+        $c->isa('PPI::Token::Operator') && $c->content !~ m{\A( -> | > | < )\z}x;
     } grep {
         my $c = $_->schild(1);
         $c->isa('PPI::Token::Operator') && $c->content eq '='
