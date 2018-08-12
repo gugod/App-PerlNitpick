@@ -9,26 +9,23 @@ no Moose;
 sub rewrite {
     my ($self, $document) = @_;
 
-    my @op_assign = grep {
-        my $op = $_;
-        $op->content eq '=' && $op->parent->isa('PPI::Statement') && $op->parent->schildren == 6 && do {
-            my $tok = $op->sprevious_sibling;
-            $tok->isa('PPI::Token::Symbol') && $tok->raw_type eq '$'
-        }  && do {
-            my $op2 = $op->parent->schild(3);
-            $op2->isa('PPI::Token::Operator') && $op2->content ne '->'
-        }
-    } @{$document->find('PPI::Token::Operator') || []};
-    return $document unless @op_assign;
-
-    my @found;
-    for my $op (@op_assign) {
-        my $prev = $op->sprevious_sibling;
-        my $next = $op->snext_sibling;
-        if ($next->isa('PPI::Token::Symbol') && $prev->content eq $next->content) {
-            push @found, $op->parent;
-        }
-    }
+    my @found = grep {
+        my $c = $_->schild(3);
+        $c->isa('PPI::Token::Operator') && $c->content ne '->'
+    } grep {
+        my $c1 = $_->schild(0);
+        my $c2 = $_->schild(2);
+        $c1->isa('PPI::Token::Symbol') && $c1->raw_type eq '$' &&
+        $c2->isa('PPI::Token::Symbol') && $c2->raw_type eq '$' &&
+        $c1->content && $c2->content
+    } grep {
+        my $c = $_->schild(1);
+        $c->isa('PPI::Token::Operator') && $c->content eq '='
+    } grep {
+        $_->schildren == 6
+    } @{ $document->find('PPI::Statement') ||[] };
+    
+    return $document unless @found;
 
     for my $statement (@found) {
         my @child = $statement->schildren;
