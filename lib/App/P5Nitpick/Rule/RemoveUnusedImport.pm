@@ -88,13 +88,13 @@ sub find_violations {
     my ($self, $elem) = @_;
 
     my %imported;
-    my %is_special = map { $_ => 1 } qw(use parent base constant MouseX::Foreign);
+    my %is_special = map { $_ => 1 } qw(MouseX::Foreign);
 
     my $include_statements = $elem->find(sub { $_[1]->isa('PPI::Statement::Include') }) || [];
     for my $st (@$include_statements) {
         next unless $st->type eq 'use';
         my $included_module = $st->module;
-        next if $is_special{"$included_module"};
+        next if $included_module =~ /\A[a-z0-9:]+\Z/ || $is_special{"$included_module"};
 
         my $expr_qw = $st->find( sub { $_[1]->isa('PPI::Token::QuoteLike::Words'); }) or next;
 
