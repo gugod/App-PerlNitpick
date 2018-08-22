@@ -37,15 +37,13 @@ sub rewrite {
         my @new_args_literal = grep { $_ ne $word } @args_literal;
 
         if (@new_args_literal == 0) {
-            if ($self->looks_like_unused( $import->{statement}->module )) {
-                $import->{statement}->delete;
-            } else {
-                $import->{expr_qw}{content} = 'qw()';
-                $import->{expr_qw}{sections}[0]{size} = length($import->{expr_qw}{content});
-            }
+            $import->{expr_qw}{content} = 'qw()';
+            $import->{expr_qw}{sections}[0]{size} = length($import->{expr_qw}{content});
         } else {
             # These 3 lines should probably be moved to the internal of PPI::Token::QuoteLike::Word
             $import->{expr_qw}{content} =~ s/\s ${word} \s/ /gsx;
+            $import->{expr_qw}{content} =~ s/\b ${word} \s//gsx;
+            $import->{expr_qw}{content} =~ s/\s ${word} \b//gsx;
             $import->{expr_qw}{content} =~ s/\b ${word} \b//gsx;
             $import->{expr_qw}{sections}[0]{size} = length($import->{expr_qw}{content});
 
