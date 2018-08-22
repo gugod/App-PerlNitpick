@@ -10,8 +10,7 @@ This nitpicking rules removes include statements that are actually un-used.
 use Moose;
 use PPI::Document;
 use Perl::Critic::Document;
-use Perl::Critic::Policy::Variables::ProhibitUnusedVariables;
-
+use Perl::Critic::Policy::TooMuchCode::ProhibitUnusedInclude;
 use App::P5Nitpick::PCPWrap;
 
 no Moose;
