@@ -3,6 +3,8 @@ package App::P5Nitpick::Rule::RemoveUnusedInclude;
 
 =encoding UTF-8
 
+=head2 DESCRIPTION
+
 This nitpicking rules removes include statements that are actually un-used.
 
 =cut
