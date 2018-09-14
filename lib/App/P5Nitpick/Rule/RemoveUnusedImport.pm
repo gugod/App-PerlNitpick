@@ -48,8 +48,9 @@ sub rewrite {
             $import->{expr_qw}{sections}[0]{size} = length($import->{expr_qw}{content});
 
             my @new_args_literal = $import->{expr_qw}->literal;
-            if (@new_args_literal == 0 && $self->looks_like_unused($import->{statement}->module)) {
-                $import->{statement}->delete;
+            if (@new_args_literal == 0) {
+                $import->{expr_qw}{content} = 'qw()';
+                $import->{expr_qw}{sections}[0]{size} = length($import->{expr_qw}{content});
             }
         }
     }
