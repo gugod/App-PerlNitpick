@@ -31,6 +31,7 @@ use App::P5Nitpick::Rule::DedupeIncludeStatements;
 use App::P5Nitpick::Rule::MoreOrLessSpaces;
 use App::P5Nitpick::Rule::QuoteSimpleStringWithSingleQuote;
 use App::P5Nitpick::Rule::RemoveEffectlessUTF8Pragma;
+use App::P5Nitpick::Rule::RemoveTrailingWhitespace;
 use App::P5Nitpick::Rule::RemoveUnusedImport;
 use App::P5Nitpick::Rule::RemoveUnusedInclude;
 use App::P5Nitpick::Rule::RemoveUnusedVariables;
