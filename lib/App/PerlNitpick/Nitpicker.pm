@@ -36,10 +36,9 @@ use App::PerlNitpick::Rule::RemoveUnusedImport;
 use App::PerlNitpick::Rule::RemoveUnusedInclude;
 use App::PerlNitpick::Rule::RemoveUnusedVariables;
 use App::PerlNitpick::Rule::RewriteHeredocAsQuotedString;
-use App::PerlNitpick::Rule::RewriteRefWithRefUtil;
 use App::PerlNitpick::Rule::RewriteWithAssignmentOperators;
 
-my @rules = qw(AppendUnimportStatement DedupeIncludeStatements MoreOrLessSpaces QuoteSimpleStringWithSingleQuote RemoveEffectlessUTF8Pragma RemoveUnusedImport RemoveUnusedInclude RemoveUnusedVariables RewriteHeredocAsQuotedString RewriteRefWithRefUtil RewriteWithAssignmentOperators);
+my @rules = qw(AppendUnimportStatement DedupeIncludeStatements MoreOrLessSpaces QuoteSimpleStringWithSingleQuote RemoveEffectlessUTF8Pragma RemoveUnusedImport RemoveUnusedInclude RemoveUnusedVariables RewriteHeredocAsQuotedString RewriteWithAssignmentOperators);
 
 sub list_rules {
     my ($class) = @_;

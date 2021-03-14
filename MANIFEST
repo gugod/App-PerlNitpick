@@ -20,7 +20,6 @@ lib/App/PerlNitpick/Rule/RemoveUnusedImport.pm
 lib/App/PerlNitpick/Rule/RemoveUnusedInclude.pm
 lib/App/PerlNitpick/Rule/RemoveUnusedVariables.pm
 lib/App/PerlNitpick/Rule/RewriteHeredocAsQuotedString.pm
-lib/App/PerlNitpick/Rule/RewriteRefWithRefUtil.pm
 lib/App/PerlNitpick/Rule/RewriteWithAssignmentOperators.pm
 script/perlnitpick
 t/DedupeIncludeStatements.t
