@@ -10,4 +10,5 @@ requires 'String::PerlQuote';
 
 on test => sub {
     requires 'Test2::V0';
+    requires 'Test2::Harness';
 };
