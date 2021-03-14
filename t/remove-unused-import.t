@@ -1,5 +1,4 @@
 #!perl
-use strict;
 use Test2::V0;
 
 use App::PerlNitpick::Rule::RemoveUnusedImport;
@@ -19,7 +18,7 @@ CODE
     ok $code2 !~ m/Baz/s;
 };
 
-subtest 'Remove only the entire `use` statement' => sub {
+todo 'Remove the entire `use` statement' => sub {
 
     my $code = <<CODE;
 use Foobar qw(Baz);
