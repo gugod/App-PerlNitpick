@@ -16,11 +16,11 @@ App::PerlNitpick - change-suggester about insignificant details.
 
 Kang-min Liu  C<< <gugod@gugod.org> >>
 
-=head3 LICENCE
+=head1 LICENCE
 
 The MIT License
 
-=head2 DISCLAIMER OF WARRANTY
+=head1 DISCLAIMER OF WARRANTY
 
 BECAUSE THIS SOFTWARE IS LICENSED FREE OF CHARGE, THERE IS NO WARRANTY
 FOR THE SOFTWARE, TO THE EXTENT PERMITTED BY APPLICABLE LAW. EXCEPT WHEN
