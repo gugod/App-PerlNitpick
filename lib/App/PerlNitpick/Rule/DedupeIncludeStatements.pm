@@ -31,7 +31,7 @@ __END__
 
 =head1 DedupeIncludeStatements
 
-In this rule, multiple identical "use" staments of the same module are merged.
+In this rule, multiple identical "use" statements of the same module are merged.
 
 For example, this code:
 
@@ -43,3 +43,5 @@ For example, this code:
 
     use File::Temp;
     use Foobar;
+
+Two statements are consider identical if, and only if, they are literally the same, character-to-character.

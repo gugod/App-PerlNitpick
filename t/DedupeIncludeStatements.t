@@ -7,6 +7,8 @@ use App::PerlNitpick::Rule::DedupeIncludeStatements;
 
 my @tests = (
     [q{use Abc; print "riho";use Abc;}, q{use Abc; print "riho";}],
+    [q{use Abc 'foo'; print "riho";use Abc;}, q{use Abc 'foo'; print "riho";use Abc;}],
+    [q{use Abc 'foo'; print "riho";use Abc 'foo';}, q{use Abc 'foo'; print "riho";}],
 );
 
 for my $t (@tests) {
