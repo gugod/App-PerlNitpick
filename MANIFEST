@@ -1,5 +1,3 @@
-.github/workflows/lint.yml
-.github/workflows/test.yml
 Build.PL
 LICENSE
 MANIFEST
