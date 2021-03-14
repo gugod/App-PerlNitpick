@@ -1,4 +1,4 @@
-package App::P5Nitpick::Rule::DedupeIncludeStatements;
+package App::PerlNitpick::Rule::DedupeIncludeStatements;
 use Moose;
 
 sub rewrite {

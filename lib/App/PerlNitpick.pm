@@ -1,4 +1,4 @@
-package App::P5Nitpick;
+package App::PerlNitpick;
 use strict;
 use warnings;
 

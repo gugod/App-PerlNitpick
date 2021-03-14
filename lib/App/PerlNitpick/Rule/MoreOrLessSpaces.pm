@@ -1,4 +1,4 @@
-package App::P5Nitpick::Rule::MoreOrLessSpaces;
+package App::PerlNitpick::Rule::MoreOrLessSpaces;
 use Moose;
 use PPI::Document;
 use PPI::Token::Whitespace;

@@ -2,7 +2,7 @@
 use strict;
 use Test2::V0;
 
-use App::P5Nitpick::Rule::AppendUnimportStatement;
+use App::PerlNitpick::Rule::AppendUnimportStatement;
 
 
 subtest 'do not append "no Moo::Role";' => sub {
@@ -14,7 +14,7 @@ sub meh { print 42 }
 CODE
 
     my $doc = PPI::Document->new(\$code);
-    my $o = App::P5Nitpick::Rule::AppendUnimportStatement->new();
+    my $o = App::PerlNitpick::Rule::AppendUnimportStatement->new();
     my $code2 = "". $o->rewrite($doc);
     ok $code2 !~ m{no Moose::Role;\n1;\n};
 };
@@ -29,7 +29,7 @@ sub meh { print 42 }
 CODE
 
     my $doc = PPI::Document->new(\$code);
-    my $o = App::P5Nitpick::Rule::AppendUnimportStatement->new();
+    my $o = App::PerlNitpick::Rule::AppendUnimportStatement->new();
     my $code2 = "". $o->rewrite($doc);
     ok $code2 =~ m{no Moose::Role;\n1;\n};
 };
@@ -44,7 +44,7 @@ sub meh { print 42 }
 CODE
 
     my $doc = PPI::Document->new(\$code);
-    my $o = App::P5Nitpick::Rule::AppendUnimportStatement->new();
+    my $o = App::PerlNitpick::Rule::AppendUnimportStatement->new();
     my $code2 = "". $o->rewrite($doc);
     ok $code2 =~ m{no Mouse::Role;\n1;\n};
 };
@@ -58,7 +58,7 @@ print 42;
 CODE
 
     my $doc = PPI::Document->new(\$code);
-    my $o = App::P5Nitpick::Rule::AppendUnimportStatement->new();
+    my $o = App::PerlNitpick::Rule::AppendUnimportStatement->new();
     my $code2 = "". $o->rewrite($doc);
     ok $code2 =~ m{no Mouse;\n1;\n};
 };
@@ -72,7 +72,7 @@ print 42;
 CODE
 
     my $doc = PPI::Document->new(\$code);
-    my $o = App::P5Nitpick::Rule::AppendUnimportStatement->new();
+    my $o = App::PerlNitpick::Rule::AppendUnimportStatement->new();
     my $code2 = "". $o->rewrite($doc);
     ok $code2 =~ m{no Moose;\n1;\n};
 };
@@ -86,7 +86,7 @@ print 42;
 CODE
 
     my $doc = PPI::Document->new(\$code);
-    my $o = App::P5Nitpick::Rule::AppendUnimportStatement->new();
+    my $o = App::PerlNitpick::Rule::AppendUnimportStatement->new();
     my $code2 = "". $o->rewrite($doc);
     ok $code2 =~ m{no Moo;\n1;\n};
 };

@@ -1,4 +1,4 @@
-package App::P5Nitpick::Rule::QuoteSimpleStringWithSingleQuote;
+package App::PerlNitpick::Rule::QuoteSimpleStringWithSingleQuote;
 # ABSTRACT: Re-quote strings with single quotes ('') if they look "simple"
 
 =encoding UTF-8

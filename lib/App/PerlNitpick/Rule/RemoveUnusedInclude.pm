@@ -1,4 +1,4 @@
-package App::P5Nitpick::Rule::RemoveUnusedInclude;
+package App::PerlNitpick::Rule::RemoveUnusedInclude;
 # ABSTRACT: Remove unused include statements.
 
 =encoding UTF-8
@@ -13,14 +13,14 @@ use Moose;
 use PPI::Document;
 use Perl::Critic::Document;
 use Perl::Critic::Policy::TooMuchCode::ProhibitUnusedInclude;
-use App::P5Nitpick::PCPWrap;
+use App::PerlNitpick::PCPWrap;
 
 no Moose;
 
 sub rewrite {
     my ($self, $doc) = @_;
 
-    my $o = App::P5Nitpick::PCPWrap->new('Perl::Critic::Policy::TooMuchCode::ProhibitUnusedInclude');
+    my $o = App::PerlNitpick::PCPWrap->new('Perl::Critic::Policy::TooMuchCode::ProhibitUnusedInclude');
 
     my @vio = $o->violates(
         $doc,

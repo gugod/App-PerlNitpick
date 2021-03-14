@@ -2,7 +2,7 @@
 use strict;
 use Test2::V0;
 
-use App::P5Nitpick::Rule::RemoveUnusedImport;
+use App::PerlNitpick::Rule::RemoveUnusedImport;
 
 subtest 'Remove only the imported subroutine' => sub {
 
@@ -12,7 +12,7 @@ print Foo(42);
 CODE
 
     my $doc = PPI::Document->new(\$code);
-    my $o = App::P5Nitpick::Rule::RemoveUnusedImport->new( document => $doc );
+    my $o = App::PerlNitpick::Rule::RemoveUnusedImport->new( document => $doc );
     my $doc2 = $o->rewrite($doc);
     my $code2 = "$doc2";
 
@@ -27,7 +27,7 @@ print 42;
 CODE
 
     my $doc = PPI::Document->new(\$code);
-    my $o = App::P5Nitpick::Rule::RemoveUnusedImport->new( document => $doc );
+    my $o = App::PerlNitpick::Rule::RemoveUnusedImport->new( document => $doc );
     my $doc2 = $o->rewrite($doc);
     my $code2 = "$doc2";
 
@@ -43,7 +43,7 @@ print Foobar::Baz(42);
 CODE
 
     my $doc = PPI::Document->new(\$code);
-    my $o = App::P5Nitpick::Rule::RemoveUnusedImport->new( document => $doc );
+    my $o = App::PerlNitpick::Rule::RemoveUnusedImport->new( document => $doc );
     my $doc2 = $o->rewrite($doc);
     my $code2 = "$doc2";
 

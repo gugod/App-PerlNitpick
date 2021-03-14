@@ -1,4 +1,4 @@
-package App::P5Nitpick::Rule::RewriteRefWithRefUtil;
+package App::PerlNitpick::Rule::RewriteRefWithRefUtil;
 
 use Moose;
 use PPI::Document;

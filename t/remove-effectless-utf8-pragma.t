@@ -2,7 +2,7 @@
 use strict;
 use Test2::V0;
 
-use App::P5Nitpick::Rule::RemoveEffectlessUTF8Pragma;
+use App::PerlNitpick::Rule::RemoveEffectlessUTF8Pragma;
 
 my $code = <<CODE;
 use strict;use utf8;
@@ -11,7 +11,7 @@ use  utf8;
 CODE
 
 my $doc = PPI::Document->new(\$code);
-my $o = App::P5Nitpick::Rule::RemoveEffectlessUTF8Pragma->new();
+my $o = App::PerlNitpick::Rule::RemoveEffectlessUTF8Pragma->new();
 my $doc2 = $o->rewrite($doc);
 my $code2 = "$doc2";
 

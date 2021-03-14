@@ -3,7 +3,7 @@ use strict;
 use Test2::V0;
 
 use PPI::Document;
-use App::P5Nitpick::Rule::RewriteWithAssignmentOperators;
+use App::PerlNitpick::Rule::RewriteWithAssignmentOperators;
 
 my @tests = (
     ['$x=$x+2;', '$x+=2;'],
@@ -17,7 +17,7 @@ for my $t (@tests) {
     my ($code_before, $code_after) = @$t;
 
     my $doc = PPI::Document->new(\$code_before);
-    my $o = App::P5Nitpick::Rule::RewriteWithAssignmentOperators->new();
+    my $o = App::PerlNitpick::Rule::RewriteWithAssignmentOperators->new();
     my $doc2 = $o->rewrite($doc);
     my $code2 = "$doc2";
     is $code2, $code_after, $code_before;

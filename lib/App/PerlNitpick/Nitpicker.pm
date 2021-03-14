@@ -1,4 +1,4 @@
-package App::P5Nitpick::Nitpicker;
+package App::PerlNitpick::Nitpicker;
 use Moose;
 
 has file => (
@@ -23,21 +23,21 @@ has inplace => (
 use PPI::Document;
 
 # use Module::Find qw(useall);
-# my @rules = sort { $a cmp $b } useall App::P5Nitpick::Rule;
+# my @rules = sort { $a cmp $b } useall App::PerlNitpick::Rule;
 
-# perl -Mlib=local -Ilib -MModule::Find=findallmod -E 'say "use $_;" for findallmod("App::P5Nitpick::Rule")'
-use App::P5Nitpick::Rule::AppendUnimportStatement;
-use App::P5Nitpick::Rule::DedupeIncludeStatements;
-use App::P5Nitpick::Rule::MoreOrLessSpaces;
-use App::P5Nitpick::Rule::QuoteSimpleStringWithSingleQuote;
-use App::P5Nitpick::Rule::RemoveEffectlessUTF8Pragma;
-use App::P5Nitpick::Rule::RemoveTrailingWhitespace;
-use App::P5Nitpick::Rule::RemoveUnusedImport;
-use App::P5Nitpick::Rule::RemoveUnusedInclude;
-use App::P5Nitpick::Rule::RemoveUnusedVariables;
-use App::P5Nitpick::Rule::RewriteHeredocAsQuotedString;
-use App::P5Nitpick::Rule::RewriteRefWithRefUtil;
-use App::P5Nitpick::Rule::RewriteWithAssignmentOperators;
+# perl -Mlib=local -Ilib -MModule::Find=findallmod -E 'say "use $_;" for findallmod("App::PerlNitpick::Rule")'
+use App::PerlNitpick::Rule::AppendUnimportStatement;
+use App::PerlNitpick::Rule::DedupeIncludeStatements;
+use App::PerlNitpick::Rule::MoreOrLessSpaces;
+use App::PerlNitpick::Rule::QuoteSimpleStringWithSingleQuote;
+use App::PerlNitpick::Rule::RemoveEffectlessUTF8Pragma;
+use App::PerlNitpick::Rule::RemoveTrailingWhitespace;
+use App::PerlNitpick::Rule::RemoveUnusedImport;
+use App::PerlNitpick::Rule::RemoveUnusedInclude;
+use App::PerlNitpick::Rule::RemoveUnusedVariables;
+use App::PerlNitpick::Rule::RewriteHeredocAsQuotedString;
+use App::PerlNitpick::Rule::RewriteRefWithRefUtil;
+use App::PerlNitpick::Rule::RewriteWithAssignmentOperators;
 
 my @rules = qw(AppendUnimportStatement DedupeIncludeStatements MoreOrLessSpaces QuoteSimpleStringWithSingleQuote RemoveEffectlessUTF8Pragma RemoveUnusedImport RemoveUnusedInclude RemoveUnusedVariables RewriteHeredocAsQuotedString RewriteRefWithRefUtil RewriteWithAssignmentOperators);
 
@@ -55,7 +55,7 @@ sub rewrite {
 
     my $ppi = PPI::Document->new( $self->file ) or return;
     for my $rule (@{$self->rules}) {
-        my $rule_class = 'App::P5Nitpick::Rule::' . $rule;
+        my $rule_class = 'App::PerlNitpick::Rule::' . $rule;
         $ppi = $rule_class->new->rewrite($ppi);
     }
     if ($self->inplace) {

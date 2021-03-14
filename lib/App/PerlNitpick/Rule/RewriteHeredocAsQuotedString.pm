@@ -1,4 +1,4 @@
-package App::P5Nitpick::Rule::RewriteHeredocAsQuotedString;
+package App::PerlNitpick::Rule::RewriteHeredocAsQuotedString;
 
 use Moose;
 use String::PerlQuote qw(double_quote);

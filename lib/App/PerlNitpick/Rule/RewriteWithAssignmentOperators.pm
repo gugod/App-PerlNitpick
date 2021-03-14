@@ -1,4 +1,4 @@
-package App::P5Nitpick::Rule::RewriteWithAssignmentOperators;
+package App::PerlNitpick::Rule::RewriteWithAssignmentOperators;
 
 use Moose;
 use PPI::Document;

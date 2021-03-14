@@ -1,4 +1,4 @@
-package App::P5Nitpick::Rule::RemoveUnusedVariables;
+package App::PerlNitpick::Rule::RemoveUnusedVariables;
 # ABSTRACT: Remove unused variables
 
 =encoding UTF-8
@@ -12,14 +12,14 @@ use PPI::Document;
 use Perl::Critic::Document;
 use Perl::Critic::Policy::Variables::ProhibitUnusedVariables;
 
-use App::P5Nitpick::PCPWrap;
+use App::PerlNitpick::PCPWrap;
 
 no Moose;
 
 sub rewrite {
     my ($self, $doc) = @_;
 
-    my $o = App::P5Nitpick::PCPWrap->new('Perl::Critic::Policy::Variables::ProhibitUnusedVariables');
+    my $o = App::PerlNitpick::PCPWrap->new('Perl::Critic::Policy::Variables::ProhibitUnusedVariables');
 
     my @vio = $o->violates(
         undef,

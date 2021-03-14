@@ -1,4 +1,4 @@
-package App::P5Nitpick::PCPWrap;
+package App::PerlNitpick::PCPWrap;
 use strict;
 use warnings;
 use Object::Method;

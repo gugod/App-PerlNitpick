@@ -1,4 +1,4 @@
-package App::P5Nitpick::Rule::RemoveTrailingWhitespace;
+package App::PerlNitpick::Rule::RemoveTrailingWhitespace;
 # ABSTRACT: Remove trailing whitespace.
 
 =encoding UTF-8
@@ -13,14 +13,14 @@ use Moose;
 use PPI::Document;
 use Perl::Critic::Document;
 use Perl::Critic::Policy::CodeLayout::ProhibitTrailingWhitespace;
-use App::P5Nitpick::PCPWrap;
+use App::PerlNitpick::PCPWrap;
 
 no Moose;
 
 sub rewrite {
     my ($self, $doc) = @_;
 
-    my $o = App::P5Nitpick::PCPWrap->new('Perl::Critic::Policy::CodeLayout::ProhibitTrailingWhitespace');
+    my $o = App::PerlNitpick::PCPWrap->new('Perl::Critic::Policy::CodeLayout::ProhibitTrailingWhitespace');
 
     my $doc2 = Perl::Critic::Document->new(-source => $doc);
     for my $type ( $o->applies_to() ) {

@@ -1,4 +1,4 @@
-package App::P5Nitpick::Rule::RemoveEffectlessUTF8Pragma;
+package App::PerlNitpick::Rule::RemoveEffectlessUTF8Pragma;
 # ABSTRACT: Re-quote strings with single quotes ('') if they look "simple"
 
 use Moose;

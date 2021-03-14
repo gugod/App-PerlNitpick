@@ -3,7 +3,7 @@ use strict;
 use Test2::V0;
 
 use PPI::Document;
-use App::P5Nitpick::Rule::MoreOrLessSpaces;
+use App::PerlNitpick::Rule::MoreOrLessSpaces;
 
 my @tests = (
     [q{my ($x,$y,$z) = something($a,$b,$c);},
@@ -36,7 +36,7 @@ for my $t (@tests) {
     my ($code_before, $code_after) = @$t;
 
     my $doc = PPI::Document->new(\$code_before);
-    my $o = App::P5Nitpick::Rule::MoreOrLessSpaces->new();
+    my $o = App::PerlNitpick::Rule::MoreOrLessSpaces->new();
     my $doc2 = $o->rewrite($doc);
     my $code2 = "$doc2";
     is $code2, $code_after, $code_before;

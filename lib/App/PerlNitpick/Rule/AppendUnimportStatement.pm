@@ -1,4 +1,4 @@
-package App::P5Nitpick::Rule::AppendUnimportStatement;
+package App::PerlNitpick::Rule::AppendUnimportStatement;
 # ABSTRACT: Ensure a 'no Moose;' statement is there if 'use Moose;' is.
 
 =encoding UTF-8

@@ -1,4 +1,4 @@
-package App::P5Nitpick::Rule::RemoveUnusedImport;
+package App::PerlNitpick::Rule::RemoveUnusedImport;
 # ABSTRACT: Remove unused import
 
 =encoding UTF-8
