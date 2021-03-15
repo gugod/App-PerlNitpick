@@ -2,6 +2,10 @@ NAME
 
     App::PerlNitpick - change-suggester about insignificant details.
 
+DESCRIPTION
+
+    See perlnitpick for usage.
+
 AUTHOR
 
     Kang-min Liu <gugod@gugod.org>

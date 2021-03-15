@@ -1,7 +1,7 @@
 package App::PerlNitpick;
 use strict;
 use warnings;
-our $VERSION = v0.01;
+our $VERSION = "0.01";
 
 1;
 

@@ -48,7 +48,7 @@
    "provides" : {
       "App::PerlNitpick" : {
          "file" : "lib/App/PerlNitpick.pm",
-         "version" : "v1.0.0"
+         "version" : "0.01"
       },
       "App::PerlNitpick::Nitpicker" : {
          "file" : "lib/App/PerlNitpick/Nitpicker.pm"
@@ -91,7 +91,7 @@
       }
    },
    "release_status" : "stable",
-   "version" : "v1.00",
+   "version" : "0.01",
    "x_serialization_backend" : "JSON::PP version 4.04",
    "x_spdx_expression" : "MIT"
 }
