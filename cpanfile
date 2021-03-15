@@ -4,6 +4,7 @@ requires 'Moose';
 requires 'PPI';
 requires 'PPIx::Utils';
 requires 'Perl::Critic';
+requires 'Perl::Critic::TooMuchCode';
 requires 'Object::Method';
 requires 'Module::Find';
 requires 'String::PerlQuote';
