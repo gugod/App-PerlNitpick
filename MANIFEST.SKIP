@@ -3,7 +3,6 @@
 .github/
 .git/
 .gitignore
+.perlcriticrc
 MANIFEST.SKIP
 metamerge.json
-Dockerfile
-action.yml
