@@ -1,16 +1,19 @@
 package App::PerlNitpick;
 use strict;
 use warnings;
-our $VERSION = v1.00;
+our $VERSION = v0.01;
 
 1;
-
 
 =encoding utf8
 
 =head1 NAME
 
 App::PerlNitpick - change-suggester about insignificant details.
+
+=head1 DESCRIPTION
+
+See L<perlnitpick> for usage.
 
 =head1 AUTHOR
 
