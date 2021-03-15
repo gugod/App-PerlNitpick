@@ -5,3 +5,5 @@
 .gitignore
 MANIFEST.SKIP
 metamerge.json
+Dockerfile
+action.yml
