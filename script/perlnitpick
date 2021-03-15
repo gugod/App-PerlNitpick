@@ -1,9 +1,8 @@
 #!/usr/bin/env perl
 use strict;
 use warnings;
-
 use Getopt::Long qw(GetOptions);
-
+use Perl::Critic::Utils qw(all_perl_files);
 use App::PerlNitpick;
 use App::PerlNitpick::Nitpicker;
 
@@ -21,7 +20,7 @@ if ($args{l}) {
     App::PerlNitpick::Nitpicker->list_rules;
 } elsif ($args{r}) {
     my @rules = split /\s*,\s*/, $args{r};
-    for my $file (@ARGV) {
+    for my $file (all_perl_files(@ARGV)) {
         my $x = App::PerlNitpick::Nitpicker->new(
             file => $file,
             rules => \@rules,
