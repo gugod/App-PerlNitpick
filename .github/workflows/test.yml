@@ -12,5 +12,5 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - run: cpanm --quite --notest --installdeps .
+      - run: cpanm --quiet --notest --installdeps .
       - run: yath test --qvf t/
