@@ -1,0 +1,13 @@
+{
+   "resources" : {
+      "bugtracker" : {
+         "web" : "https://github.com/gugod/App-PerlNitpick/issues"
+      },
+      "homepage" : "https://github.com/gugod/App-PerlNitpick",
+      "repository" : {
+         "url" : "git://github.com/gugod/App-PerlNitpick.git",
+         "web" : "https://github.com/gugod/App-PerlNitpick"
+      }
+   },
+    "x_static_install": true
+}
