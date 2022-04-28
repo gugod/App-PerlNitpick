@@ -47,7 +47,6 @@ provides:
   App::PerlNitpick::Rule::RewriteWithAssignmentOperators:
     file: lib/App/PerlNitpick/Rule/RewriteWithAssignmentOperators.pm
 requires:
-  File::Slurp: '0'
   Getopt::Long: '0'
   Module::Find: '0'
   Moose: '0'
