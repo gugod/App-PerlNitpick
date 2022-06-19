@@ -19,7 +19,7 @@ sub rewrite {
 
         ($c1->isa('PPI::Token::Operator') && $c1->content eq '=') &&
         ($c5->isa('PPI::Token::Structure') && $c5->content eq ';') &&
-        ($c3->isa('PPI::Token::Operator') && $c3->content !~ m{\A( -> | > | < )\z}x) &&
+        ($c3->isa('PPI::Token::Operator') && $c3->content !~ m{\A( -> | > | < | \.)\z}x) &&
         ($c0->isa('PPI::Token::Symbol') && $c0->raw_type eq '$' &&
         $c2->isa('PPI::Token::Symbol') && $c2->raw_type eq '$' &&
         $c1->content && $c2->content)
