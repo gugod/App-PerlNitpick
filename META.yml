@@ -26,8 +26,6 @@ provides:
     file: lib/App/PerlNitpick/Rule/AppendUnimportStatement.pm
   App::PerlNitpick::Rule::DedupeIncludeStatements:
     file: lib/App/PerlNitpick/Rule/DedupeIncludeStatements.pm
-  App::PerlNitpick::Rule::MoreOrLessSpaces:
-    file: lib/App/PerlNitpick/Rule/MoreOrLessSpaces.pm
   App::PerlNitpick::Rule::QuoteSimpleStringWithSingleQuote:
     file: lib/App/PerlNitpick/Rule/QuoteSimpleStringWithSingleQuote.pm
   App::PerlNitpick::Rule::RemoveEffectlessUTF8Pragma:

@@ -1,3 +1,5 @@
+	- The rule MoreOrLessSpaces is removed. Better to use perltidy.
+
 v0.3.0
 	- Released at 2022-06-27T00:22:45+0900
         - Fixed a failure test case about the non-commutative operator `.`

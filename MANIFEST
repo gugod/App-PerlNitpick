@@ -12,7 +12,6 @@ lib/App/PerlNitpick/Nitpicker.pm
 lib/App/PerlNitpick/PCPWrap.pm
 lib/App/PerlNitpick/Rule/AppendUnimportStatement.pm
 lib/App/PerlNitpick/Rule/DedupeIncludeStatements.pm
-lib/App/PerlNitpick/Rule/MoreOrLessSpaces.pm
 lib/App/PerlNitpick/Rule/QuoteSimpleStringWithSingleQuote.pm
 lib/App/PerlNitpick/Rule/RemoveEffectlessUTF8Pragma.pm
 lib/App/PerlNitpick/Rule/RemoveTrailingWhitespace.pm
@@ -24,7 +23,6 @@ lib/App/PerlNitpick/Rule/RewriteHeredocAsQuotedString.pm
 lib/App/PerlNitpick/Rule/RewriteWithAssignmentOperators.pm
 script/perlnitpick
 t/DedupeIncludeStatements.t
-t/MoreOrLessSpaces.t
 t/QuoteSimpleStringWithSingleQuote.t
 t/RemoveUnusedVariables.t
 t/RewriteWithAssignmentOperators.t

@@ -28,7 +28,6 @@ use PPI::Document;
 # perl -Mlib=local -Ilib -MModule::Find=findallmod -E 'say "use $_;" for findallmod("App::PerlNitpick::Rule")'
 use App::PerlNitpick::Rule::AppendUnimportStatement;
 use App::PerlNitpick::Rule::DedupeIncludeStatements;
-use App::PerlNitpick::Rule::MoreOrLessSpaces;
 use App::PerlNitpick::Rule::QuoteSimpleStringWithSingleQuote;
 use App::PerlNitpick::Rule::RemoveEffectlessUTF8Pragma;
 use App::PerlNitpick::Rule::RemoveTrailingWhitespace;
@@ -38,7 +37,7 @@ use App::PerlNitpick::Rule::RemoveUnusedVariables;
 use App::PerlNitpick::Rule::RewriteHeredocAsQuotedString;
 use App::PerlNitpick::Rule::RewriteWithAssignmentOperators;
 
-my @rules = qw(AppendUnimportStatement DedupeIncludeStatements MoreOrLessSpaces QuoteSimpleStringWithSingleQuote RemoveEffectlessUTF8Pragma RemoveUnusedImport RemoveUnusedInclude RemoveUnusedVariables RewriteHeredocAsQuotedString RewriteWithAssignmentOperators);
+my @rules = qw(AppendUnimportStatement DedupeIncludeStatements QuoteSimpleStringWithSingleQuote RemoveEffectlessUTF8Pragma RemoveUnusedImport RemoveUnusedInclude RemoveUnusedVariables RewriteHeredocAsQuotedString RewriteWithAssignmentOperators);
 
 sub list_rules {
     my ($class) = @_;
