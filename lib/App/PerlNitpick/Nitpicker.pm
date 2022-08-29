@@ -42,6 +42,7 @@ my @rules = qw(
     DedupeIncludeStatements
     QuoteSimpleStringWithSingleQuote
     RemoveEffectlessUTF8Pragma
+    RemoveTrailingWhitespace
     RemoveUnusedImport
     RemoveUnusedInclude
     RemoveUnusedVariables
