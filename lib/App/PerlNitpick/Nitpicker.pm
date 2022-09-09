@@ -37,7 +37,18 @@ use App::PerlNitpick::Rule::RemoveUnusedVariables;
 use App::PerlNitpick::Rule::RewriteHeredocAsQuotedString;
 use App::PerlNitpick::Rule::RewriteWithAssignmentOperators;
 
-my @rules = qw(AppendUnimportStatement DedupeIncludeStatements QuoteSimpleStringWithSingleQuote RemoveEffectlessUTF8Pragma RemoveUnusedImport RemoveUnusedInclude RemoveUnusedVariables RewriteHeredocAsQuotedString RewriteWithAssignmentOperators);
+my @rules = qw(
+    AppendUnimportStatement
+    DedupeIncludeStatements
+    QuoteSimpleStringWithSingleQuote
+    RemoveEffectlessUTF8Pragma
+    RemoveTrailingWhitespace
+    RemoveUnusedImport
+    RemoveUnusedInclude
+    RemoveUnusedVariables
+    RewriteHeredocAsQuotedString
+    RewriteWithAssignmentOperators
+);
 
 sub list_rules {
     my ($class) = @_;
