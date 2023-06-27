@@ -1,6 +1,5 @@
 #!perl
 use Test2::V0;
-
 use App::PerlNitpick::Rule::RemoveEffectlessUTF8Pragma;
 
 subtest 'remove effectless utf8 pragma' => sub {

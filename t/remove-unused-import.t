@@ -1,10 +1,8 @@
 #!perl
 use Test2::V0;
-
 use App::PerlNitpick::Rule::RemoveUnusedImport;
 
 subtest 'Remove only the imported subroutine' => sub {
-
     my $code = <<CODE;
 use Foobar qw(Foo Baz);
 print Foo(42);
@@ -19,11 +17,9 @@ use Foobar qw(Foo);
 print Foo(42);
 print Foobar::Baz(42);
 NEWCODE
-
 };
 
 todo 'Remove the `use` statement, if none of those symbols imported in the statement are used.' => sub {
-
     my $code = <<CODE;
 use Foobar qw(Bux Baz);
 print 42;
