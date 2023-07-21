@@ -6,6 +6,7 @@ use App::PerlNitpick::Rule::DedupeIncludeStatements;
 subtest 'dedupe include statements' => sub {
     my @tests = (
         [q{use Abc; print "riho";use Abc;}, q{use Abc; print "riho";}],
+        [qq{use Abc;\nuse Abc;\nprint "riho";use Abc;}, qq{use Abc;\nprint "riho";}],
         [q{use Abc 'foo'; print "riho";use Abc;}, q{use Abc 'foo'; print "riho";use Abc;}],
         [q{use Abc 'foo'; print "riho";use Abc 'foo';}, q{use Abc 'foo'; print "riho";}],
     );
