@@ -30,6 +30,6 @@ jobs:
     steps:
       - uses: actions/download-artifact@v3
         with:
-          name: App-PerlNitPick-tarball
+          name: App-PerlNitpick-tarball
       - run: echo ./App-PerlNitpick-*.tar.gz
       - run: cpanm --verbose ./App-PerlNitpick-*.tar.gz
