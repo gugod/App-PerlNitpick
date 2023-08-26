@@ -32,4 +32,5 @@ jobs:
         with:
           name: App-PerlNitpick-tarball
       - run: echo ./App-PerlNitpick-*.tar.gz
+      - run: cpanm --notest --quiet --installdeps ./App-PerlNitpick-*.tar.gz
       - run: cpanm --verbose ./App-PerlNitpick-*.tar.gz
