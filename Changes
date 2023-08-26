@@ -1,3 +1,4 @@
+	- new rule: AddTrailingCommas
 	- The rule MoreOrLessSpaces is removed. Better to use perltidy.
 
 v0.3.0
