@@ -18,7 +18,7 @@ jobs:
       - run: yath test
 
   mbtiny-dist:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-slim
     container:
       image: perl:5.38
     steps:
@@ -38,7 +38,7 @@ jobs:
       matrix:
         version: ["5.39","5.38", "5.36", "5.34","5.18"]
     name: cpanm-dist-perl-${{ matrix.version }}
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-slim
     container:
       image: perl:${{ matrix.version }}
     steps:
